@@ -29,10 +29,11 @@ public class BigRational extends Number implements Comparable<BigRational> {
 
 		BigInteger divisor = new BigInteger("1");
 
-		while (divisor.doubleValue() <= numerator.doubleValue() && divisor.doubleValue() <= denominator.doubleValue()) {
+		while ((divisor.compareTo(numerator) == -1 || divisor.compareTo(numerator) == 0)
+				&& (divisor.compareTo(denominator) == -1 || divisor.compareTo(denominator) == 0)) {
 
-			if (numerator.remainder(divisor) == new BigInteger("0")
-					&& denominator.remainder(divisor) == new BigInteger("0")) {
+			if (numerator.remainder(divisor).equals(new BigInteger("0"))
+					&& denominator.remainder(divisor).equals(new BigInteger("0"))) {
 				gcd = divisor;
 			}
 
@@ -116,26 +117,22 @@ public class BigRational extends Number implements Comparable<BigRational> {
 
 	@Override
 	public int intValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (int) doubleValue();
 	}
 
 	@Override
 	public long longValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (long) doubleValue();
 	}
 
 	@Override
 	public float floatValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (float) doubleValue();
 	}
 
 	@Override
 	public double doubleValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (numerator.doubleValue() / denominator.doubleValue());
 	}
 
 }

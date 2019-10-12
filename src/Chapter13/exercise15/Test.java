@@ -5,10 +5,10 @@ import java.math.BigInteger;
 public class Test {
 	public static void main(String[] args) {
 		
-		
-	BigInteger gcd =  BigRational.gcd(new BigInteger("10"), new BigInteger("20"));	
+		BigRational br = new BigRational(new BigInteger("1200"), new BigInteger("1700"));
 	
-	System.out.println(gcd.doubleValue());
-		
+	
+		System.out.println(br);
+	
 	}
 }
