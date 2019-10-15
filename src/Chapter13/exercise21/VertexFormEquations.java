@@ -31,6 +31,7 @@ public class VertexFormEquations {
 		
 		System.out.println("h is " + h + " k is " + k);
 		
+
 	}
 
 }

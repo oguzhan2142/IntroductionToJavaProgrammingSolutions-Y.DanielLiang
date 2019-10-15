@@ -7,7 +7,7 @@ public class ReplaceWords {
 
 	
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {/*
 		
 		File testFolder = new File("src/Chapter12/exercise27/test");
 		
@@ -25,17 +25,17 @@ public class ReplaceWords {
 		
 		for (int i = 0; i < sourceFIles.length; i++) {
 			
-			if (isSingleDigit(sourceFIles[i])) {
+		*//*	if (isSingleDigit(sourceFIles[i])) {
 				
 				while (sourceFIles[i].getName().charAt(11) != '0') {
 					
 				}
 				
-				
+			*//*
 				
 			}
 			
-		}
+		}*/
 		
 		
 		

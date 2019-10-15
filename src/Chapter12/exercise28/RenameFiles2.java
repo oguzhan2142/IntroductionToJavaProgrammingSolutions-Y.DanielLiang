@@ -2,7 +2,7 @@ package Chapter12.exercise28;
 
 import java.io.File;
 
-public class RenameFiles {
+public class RenameFiles2 {
 
 	public static void main(String[] args) {
 
@@ -10,12 +10,8 @@ public class RenameFiles {
 
 		File[] childs = currentDir.listFiles();
 
-		for (int i = 0; i < childs.length; i++) {
-			if (isSingleDigit(childs[i])) {
-
-				childs[i].renameTo(new File(giveNewPath(childs[i])));
-
-			}
+		for (File child : childs) {
+			if (isSingleDigit(child)) child.renameTo(new File(giveNewPath(child)));
 		}
 
 	}
