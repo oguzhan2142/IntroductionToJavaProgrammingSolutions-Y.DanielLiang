@@ -2,7 +2,7 @@ package exercise04;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -15,20 +15,21 @@ public class ColorAndFont extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 
-        VBox pane = new VBox();
+        HBox pane = new HBox();
 
 
-        Font defaultFont = Font.font("Times New Roman" , FontWeight.BOLD , FontPosture.ITALIC ,22  );
+        Font defaultFont = Font.font("Times New Roman", FontWeight.BOLD, FontPosture.ITALIC, 22);
 
         Text[] text = new Text[5];
 
-        int yPos = 10;
 
-        for (int i = 0; i <text.length ; i++) {
-            yPos *= (i + 1);
-            text[i] = new Text(0,yPos,"Introduction to java programming");
+
+        for (int i = 0; i < text.length; i++) {
+
+            text[i] = new Text( i * 10, 30, "JJava");
             text[i].setFont(defaultFont);
             text[i].setFill(getRandomColor());
+            text[i].setRotate(90);
         }
 
 
@@ -38,21 +39,21 @@ public class ColorAndFont extends Application {
 
         }
 
-        Scene scene = new Scene(pane , 500 , 600);
+        Scene scene = new Scene(pane, 500, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Color and Font");
         primaryStage.show();
 
     }
 
-    private Color  getRandomColor() {
+    private Color getRandomColor() {
 
         double randomR = Math.random();
         double randomG = Math.random();
         double randomB = Math.random();
         double randomOpacity = Math.random();
 
-        return new Color(randomR,randomG,randomB,randomOpacity);
+        return new Color(randomR, randomG, randomB, randomOpacity);
 
     }
 }
