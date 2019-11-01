@@ -1,7 +1,9 @@
 package exercise20;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -18,6 +20,36 @@ public class DisplayAngles extends Application {
         double[][] points = {{30, 60}, {124, 60}, {60, 200}};
         CustomTriangle customTriangle = new CustomTriangle(points);
         pane.getChildren().add(customTriangle);
+
+
+        EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                double x = event.getX();
+                double y = event.getY();
+
+
+                if (customTriangle.getCircleA().contains(x, y)) {
+
+                    customTriangle.updateA(x, y);
+
+                }
+                if (customTriangle.getCircleB().contains(x, y)) {
+                    customTriangle.updateB(x,y);
+                }
+                if (customTriangle.getCircleC().contains(x, y)) {
+                    customTriangle.updateC(x,y);
+                }
+            }
+        };
+
+
+        customTriangle.getCircleA().setOnMouseDragged(handler);
+        customTriangle.getCircleB().setOnMouseDragged(handler);
+        customTriangle.getCircleC().setOnMouseDragged(handler);
+
+
         primaryStage.setTitle("Display Angles");
         primaryStage.setScene(new Scene(pane, 800, 800));
         primaryStage.show();
@@ -56,11 +88,11 @@ class CustomTriangle extends Pane {
 
         this.angle = computeAngles(this.points);
 
-        angleA = new Text(points[0][0],points[0][1],String.format("%.2f" , this.angle[0]));
-        angleB = new Text(points[1][0],points[1][1],String.format("%.2f" , this.angle[1]));
-        angleC = new Text(points[2][0],points[2][1],String.format("%.2f" , this.angle[2]));
+        angleA = new Text(points[0][0] + 10, points[0][1] - 10, String.format("%.2f", this.angle[0]));
+        angleB = new Text(points[1][0] + 10, points[1][1] + 10, String.format("%.2f", this.angle[1]));
+        angleC = new Text(points[2][0] - 10, points[2][1] + 30, String.format("%.2f", this.angle[2]));
 
-        getChildren().addAll(triangle,circleA,circleB,circleC,angleA,angleB,angleC);
+        getChildren().addAll(triangle, circleA, circleB, circleC, angleA, angleB, angleC);
 
     }
 
@@ -78,6 +110,73 @@ class CustomTriangle extends Pane {
 
         return angle;
     }
+
+
+    public void updateA(double x, double y) {
+
+        circleA.setCenterX(x);
+        circleA.setCenterY(y);
+        this.points[0][0] = x;
+        this.points[0][1] = y;
+        triangle.getPoints().clear();
+        for (int i = 0; i < points.length; i++) {
+            for (int j = 0; j < points[0].length; j++) {
+                triangle.getPoints().add(this.points[i][j]);
+            }
+
+        }
+        this.angle = computeAngles(points);
+        angleA.setX(x + 10);
+        angleA.setY(y - 10);
+        angleA.setText(String.format("%.2f", this.angle[0]));
+        angleB.setText(String.format("%.2f", this.angle[1]));
+        angleC.setText(String.format("%.2f", this.angle[2]));
+
+
+    }
+
+    public void updateB(double x, double y) {
+        circleB.setCenterX(x);
+        circleB.setCenterY(y);
+        this.points[1][0] = x;
+        this.points[1][1] = y;
+        triangle.getPoints().clear();
+        for (int i = 0; i < points.length; i++) {
+            for (int j = 0; j < points[0].length; j++) {
+                triangle.getPoints().add(this.points[i][j]);
+            }
+
+        }
+        this.angle = computeAngles(points);
+        angleB.setX(x + 10);
+        angleB.setY(y + 10);
+        angleA.setText(String.format("%.2f", this.angle[0]));
+        angleB.setText(String.format("%.2f", this.angle[1]));
+        angleC.setText(String.format("%.2f", this.angle[2]));
+
+    }
+
+    public void updateC(double x, double y) {
+        circleC.setCenterX(x);
+        circleC.setCenterY(y);
+        this.points[2][0] = x;
+        this.points[2][1] = y;
+        triangle.getPoints().clear();
+        for (int i = 0; i < points.length; i++) {
+            for (int j = 0; j < points[0].length; j++) {
+                triangle.getPoints().add(this.points[i][j]);
+            }
+
+        }
+        this.angle = computeAngles(points);
+        angleC.setX(x + 10);
+        angleC.setY(y - 30);
+        angleA.setText(String.format("%.2f", this.angle[0]));
+        angleB.setText(String.format("%.2f", this.angle[1]));
+        angleC.setText(String.format("%.2f", this.angle[2]));
+
+    }
+
 
     public Circle getCircleA() {
         return circleA;
