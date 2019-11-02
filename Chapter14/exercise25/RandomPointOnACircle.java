@@ -6,62 +6,68 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 
 public class RandomPointOnACircle extends Application {
-
-    final double width = 800;
-    final double heignt = 800;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         Pane pane = new Pane();
 
-        final double RADIUS = 200;
-
-        double[] randomDegrees = new double[4];
-
-        for (int i = 0; i < randomDegrees.length; i++) {
-
-
-            double randomDegree = (int) (Math.random() * 361);
-            randomDegrees[i] = Math.toRadians(randomDegree);
-
-
-        }
-
-
-        Circle circle = new Circle(width / 2, heignt / 2, RADIUS);
-        circle.setFill(Color.WHITE);
+        Circle circle = new Circle(300, 300, 120);
         circle.setStroke(Color.BLACK);
+        circle.setFill(Color.WHITE);
 
-        double[] points = new double[4 * 2];
+        double[][] randomFivePoints = getRandomFivePoints(circle);
 
-        for (int i = 0; i < points.length; i += 2) {
-
-            double x = circle.getCenterX() + RADIUS * Math.cos(randomDegrees[i / 2]);
-            double y = circle.getCenterY() + RADIUS * Math.sin(randomDegrees[i / 2]);
-
-            points[i] = x;
-            points[i + 1] = y;
-
-
-        }
-
-
-        Polygon polygon = new Polygon(points);
-        polygon.setStrokeType(StrokeType.INSIDE);
+        Polygon polygon = new Polygon();
         polygon.setStroke(Color.BLACK);
         polygon.setFill(Color.WHITE);
 
+        for (int i = 0; i < randomFivePoints.length; i++) {
+            for (int j = 0; j < randomFivePoints[0].length; j++) {
 
+                polygon.getPoints().add(randomFivePoints[i][j]);
+
+            }
+
+        }
         pane.getChildren().addAll(circle, polygon);
-
-        primaryStage.setScene(new Scene(pane, width, heignt));
-        primaryStage.setTitle("Random point on circle");
+        primaryStage.setScene(new Scene(pane, 600, 600));
+        primaryStage.setTitle("Random Points On A Circle");
         primaryStage.show();
-
     }
+
+
+    private double[][] getRandomFivePoints(Circle c) {
+
+        double[][] randomPoints = new double[5][2];
+        double[] fiveRandomAngle = new double[5];
+        for (int i = 0; i < fiveRandomAngle.length; i++) {
+
+            fiveRandomAngle[i] = Math.random() * 361;
+
+        }
+        for (int i = 0; i < fiveRandomAngle.length - 1; i++) {
+            for (int j = i + 1; j < fiveRandomAngle.length; j++) {
+
+                if (fiveRandomAngle[i] > fiveRandomAngle[j]) {
+                    double temp = fiveRandomAngle[i];
+                    fiveRandomAngle[i] = fiveRandomAngle[j];
+                    fiveRandomAngle[j] = temp;
+                }
+            }
+
+        }
+        for (int i = 0; i < randomPoints.length; i++) {
+
+            randomPoints[i][0] = c.getCenterX() + c.getRadius() * Math.cos(Math.toRadians(fiveRandomAngle[i]));
+            randomPoints[i][1] = c.getCenterY() + c.getRadius() * Math.sin(Math.toRadians(fiveRandomAngle[i]));
+
+        }
+
+        return randomPoints;
+    }
+
+
 }

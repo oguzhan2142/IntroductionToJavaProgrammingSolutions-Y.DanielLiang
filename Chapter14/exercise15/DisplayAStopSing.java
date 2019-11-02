@@ -24,7 +24,7 @@ public class DisplayAStopSing extends Application {
 
 
         Text stop = new Text("STOP");
-        stop.setFont(Font.font("Tahoma" , FontWeight.NORMAL , FontPosture.REGULAR,80));
+        stop.setFont(Font.font("Tahoma", FontWeight.NORMAL, FontPosture.REGULAR, 80));
         stop.setFill(Color.WHITE);
         Polygon octagon = new Polygon();
 
@@ -35,7 +35,6 @@ public class DisplayAStopSing extends Application {
         ObservableList<Double> points = octagon.getPoints();
 
         for (int i = 0; i < 8; i++) {
-
             points.add(centerX + radius * Math.cos(2 * i * Math.PI / 8));
             points.add(centerY - radius * Math.sin(2 * i * Math.PI / 8));
 
@@ -45,7 +44,7 @@ public class DisplayAStopSing extends Application {
         octagon.setRotate(360 / 16);
         octagon.setFill(Color.RED);
 
-        pane.getChildren().addAll(octagon,stop);
+        pane.getChildren().addAll(octagon, stop);
 
 
         primaryStage.setScene(new Scene(pane, width, height));

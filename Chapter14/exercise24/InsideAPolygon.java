@@ -1,9 +1,11 @@
 package exercise24;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -11,48 +13,40 @@ import javafx.stage.Stage;
 import java.util.Scanner;
 
 public class InsideAPolygon extends Application {
-
-    final double width = 800;
-    final double height = 800;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Pane pane = new Pane();
+        Polygon polygon = new Polygon();
 
+        ObservableList<Double> polygonPoints = polygon.getPoints();
+        double[] testPoint = new double[2];
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("enter five point:");
 
-        double[] points = new double[4 * 2];
-        double[] checkPoint = new double[2];
-
-        for (int i = 0; i < points.length; i++) {
-            points[i] = scanner.nextDouble();
+        System.out.println("Enter points:");
+        for (int i = 0; i < 8; i++) {
+            polygonPoints.add(scanner.nextDouble());
+        }
+        for (int i = 0; i < testPoint.length; i++) {
+            testPoint[i] = scanner.nextDouble();
         }
 
-        for (int i = 0; i < checkPoint.length; i++) {
-            checkPoint[i] = scanner.nextDouble();
-        }
-
-
-        Polygon polygon = new Polygon(points);
-
-        pane.getChildren().add(polygon);
-        polygon.setFill(Color.WHITE);
+        Circle circle = new Circle(testPoint[0], testPoint[1], 10);
+        circle.setFill(Color.WHITE);
+        circle.setStroke(Color.BLACK);
         polygon.setStroke(Color.BLACK);
+        polygon.setFill(Color.WHITE);
 
-        Text inside = new Text( width / 10 * 3 , height / 10 * 9 , "The point inside the poplygon");
-        Text outside = new Text(width / 10 * 3 , height / 10 * 9 , "The point outside the poplygon");
-
-        if (polygon.contains(checkPoint[0] , checkPoint[1])){
-            pane.getChildren().add(inside);
+        if (polygon.contains(circle.getCenterX(),circle.getCenterY())){
+            pane.getChildren().add(new Text(200,580,"Point inside in Polygon"));
         }else {
-            pane.getChildren().add(outside);
+            pane.getChildren().add(new Text(200,580,"Point is not inside in Polygon"));
         }
 
-        primaryStage.setScene(new Scene(pane, width, height));
-        primaryStage.setTitle("is Point inside in Polygon?");
+
+        pane.getChildren().addAll(polygon,circle );
+        primaryStage.setScene(new Scene(pane,600,600));
+        primaryStage.setTitle("Inside A Polygon?");
         primaryStage.show();
 
     }
