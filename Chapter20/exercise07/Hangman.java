@@ -1,10 +1,12 @@
 package exercise07;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -16,16 +18,56 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class Hangman extends Application {
+    int missedCounter = 0;
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         HangmanPane hangmanPane = new HangmanPane();
+        String word = "java";
 
 
-        primaryStage.setScene(new Scene(hangmanPane));
+        StringBuilder answer = new StringBuilder();
+        for (int i = 0; i < word.length(); i++) {
+            answer.append("*");
+        }
+
+        hangmanPane.getAnswerField().setText(answer.toString());
+
+        Scene scene = new Scene(hangmanPane);
+        hangmanPane.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+                char ch = event.getCode().toString().charAt(0);
+                ch = Character.toLowerCase(ch);
+
+                for (int i = 0; i < word.length(); i++) {
+
+                    if (word.charAt(i) == ch) {
+                        answer.setCharAt(i, ch);
+                        hangmanPane.getAnswerField().setText(answer.toString());
+                    }
+
+                }
+                if (!word.contains(ch + "")) {
+                    if (missedCounter >= hangmanPane.getParts().length)
+                        System.exit(0);
+                    hangmanPane.getMissedField().setText(hangmanPane.getMissedField().getText() + " " + ch);
+                    hangmanPane.getChildren().add(hangmanPane.getParts()[missedCounter]);
+                    missedCounter++;
+                }
+
+            }
+        });
+
+
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Hangman");
         primaryStage.setResizable(false);
         primaryStage.show();
+        hangmanPane.requestFocus();
     }
 }
 
@@ -36,7 +78,6 @@ class HangmanPane extends Pane {
     private TextField answerField;
     private TextField missedField;
     private int wrongAnswer = 0;
-
 
 
     public HangmanPane() {
@@ -62,18 +103,31 @@ class HangmanPane extends Pane {
 
 
         answerField = new TextField();
+        answerField.setEditable(false);
         missedField = new TextField();
+        missedField.setEditable(false);
 
 
-        HBox hBox = new HBox(10,new Label("Word is :") , answerField);
-        HBox hBox2 = new HBox(10,new Label("Missed letters :") , missedField);
-        VBox vBox = new VBox(5,hBox , hBox2);
+        HBox hBox = new HBox(10, new Label("Word is :"), answerField);
+        HBox hBox2 = new HBox(10, new Label("Missed letters :"), missedField);
+        VBox vBox = new VBox(5, hBox, hBox2);
         vBox.setLayoutX(300);
         vBox.setLayoutY(500);
-
-
-        getChildren().addAll(arc, lineVertical1, lineHorizontal,vBox);
+        getChildren().addAll(arc, lineVertical1, lineHorizontal, vBox);
     }
 
+    public Node[] getParts() {
+        return parts;
+    }
+
+
+    public TextField getAnswerField() {
+        return answerField;
+    }
+
+
+    public TextField getMissedField() {
+        return missedField;
+    }
 
 }

@@ -1,5 +1,7 @@
 package exercise08;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Lottery {
@@ -20,9 +22,10 @@ public class Lottery {
 
         int sameDigitCounter = 0;
 
+
         for (int i = 0; i < guessNumber.length(); i++) {
             for (int j = 0; j < guessNumber.length(); j++) {
-                if (guessNumber.charAt(i) == lottaryNumber.charAt(j)){
+                if (guessNumber.charAt(i) == lottaryNumber.charAt(j)) {
                     sameDigitCounter++;
                     break;
                 }
@@ -31,11 +34,13 @@ public class Lottery {
 
         }
 
+
         if (lottaryNumber.equals(guessNumber))
             System.out.println("Exact match: you win $10,000");
         else if (sameDigitCounter == 3)
             System.out.println("Match all digits: you win $3,000");
-
+        else if (sameDigitCounter == 2)
+            System.out.println("Match two  digits: you win $2,000");
         else if (sameDigitCounter == 1)
             System.out.println("Match one digit: you win $1,000");
     }
