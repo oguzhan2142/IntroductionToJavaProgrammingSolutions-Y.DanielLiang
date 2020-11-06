@@ -9,3 +9,5 @@ https://www.academia.edu/39285955/Intro_To_Java_Programming_Comprehensive_Versio
 Please contact me if there is a better solution in any exercise.
 
 Chapter 22/33 completed.
+## License
+[MIT](https://github.com/oguzhan2142/IntroductionToJavaProgrammingSolutions-Y.DanielLiang/blob/master/LICENSE)
