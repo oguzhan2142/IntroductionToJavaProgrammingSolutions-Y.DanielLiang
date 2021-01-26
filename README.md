@@ -2,11 +2,11 @@
 
 This project includes solutions of exercises in Introduction To Java Programming book.
 
-You can download book the link bellow
 
-https://www.academia.edu/39285955/Intro_To_Java_Programming_Comprehensive_Version_10th_Edition_by_Y._Daniel_Liang
+<img src="https://images-na.ssl-images-amazon.com/images/I/51hOnFPzUfL._SX398_BO1,204,203,200_.jpg" width=300/>
 
-Please contact me if there is a better solution in any exercise.
+https://www.amazon.com/Intro-Java-Programming-Comprehensive-Version/dp/0133761312
+ <a href="https://www.amazon.com/Intro-Java-Programming-Comprehensive-Version/dp/0133761312">Amazon</a> 
 
 Chapter 22/33 completed.
 ## License
